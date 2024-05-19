@@ -1,7 +1,7 @@
 import json
 
 def SetSubstances (substances):
-    pass
+    return
 
 def GetSubstances (searchCriteria) -> json:
-    pass
+    return
