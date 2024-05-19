@@ -1,10 +1,14 @@
 import json
 import jsonschema
 
+import os
+
 def SubstancesAreValid (substances_to_validate) -> bool:
     result = False
 
-    with open("C:\\Users\\Studies\\Programmierprojekt\\Source\\Substance\\Schema.json", "r") as schema_file:
+    schema_path = os.path.dirname(__file__)
+
+    with open(schema_path + "\\Schema.json", "r") as schema_file:
         schema = json.load(schema_file)
 
         try:
