@@ -1,6 +1,6 @@
 import json
 
-from ..Substance import Validator as SubstanceValidator
+from Source.Substance import Validator as SubstanceValidator
 
 def SetSubstances (substances):
     if SubstanceValidator.SubstancesAreValid(substances) == True:
