@@ -1,3 +1,5 @@
 .obsidian/
 
+__pycache__
+
 test.py
