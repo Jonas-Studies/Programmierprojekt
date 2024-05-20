@@ -42,7 +42,7 @@ def SetSubstance (substance):
 
     return
 
-def GetSubstances (searchCriteria) -> json:
+def GetSubstances (searchCriteria) -> list:
     Database = MongoDB.Substances()
 
     result = Database.GetSubstances(searchCriteria)
