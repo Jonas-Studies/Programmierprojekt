@@ -1,5 +1,3 @@
-import json
-
 from Source.Substance import Validator as SubstanceValidator
 from Source.Database import MongoDB
 
