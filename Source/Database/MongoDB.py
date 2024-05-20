@@ -24,6 +24,15 @@ class Substances:
 
         return
     
+    def UpdateSubstanceByID(self, id, substance) -> None:
+        searchCriterias = {
+            "_id": id
+        }
+
+        self.collection.update_one(filter = searchCriterias, update = substance)
+
+        return
+    
     def GetSubstances (self, searchCriteria) -> list:
         substances = self.collection.find(searchCriteria)
 
