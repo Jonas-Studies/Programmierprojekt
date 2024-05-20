@@ -29,7 +29,7 @@ class Substances:
             "_id": id
         }
 
-        self.collection.update_one(filter = searchCriterias, update = substance)
+        self.collection.replace_one(searchCriterias, substance)
 
         return
     
