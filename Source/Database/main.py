@@ -5,7 +5,8 @@ from Source.Database import MongoDB
 
 def SetSubstances (substances):
     if SubstanceValidator.SubstancesAreValid(substances) == True:
-        pass
+        for substance in substances:
+            SetSubstance(substance)
 
     else:
         pass
