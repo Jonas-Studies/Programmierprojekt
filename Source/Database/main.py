@@ -21,11 +21,11 @@ def SetSubstance (substance):
 
     existingSubstances = Database.GetSubstances(searchCriteria)
 
-    if existingSubstances.__len__ == 0:
+    if existingSubstances.__len__() == 0:
         Database.InsertSubstance(substance)
     
     else:
-        if existingSubstances.__len__ == 1:
+        if existingSubstances.__len__() == 1:
             existingSubstance = existingSubstances[0]
             
             if existingSubstance["last_modified"] != substance["last_modified"]:
