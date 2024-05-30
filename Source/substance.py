@@ -23,7 +23,7 @@ def get_new_substance (
         "inchi": inchi,
         "inchi_key": inchi_key,
         "molecular_mass": molecular_mass,
-        "cas_num": molecular_mass,
+        "cas_num": cas_number,
         "categories": categories,
         "source": {
             "name": source_name,
