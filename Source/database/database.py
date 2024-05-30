@@ -1,39 +1,59 @@
+from datetime import datetime
+
 from Source.database import mongoDB
 
-def set_substances (substances):
-    for substance in substances:
-        set_substance(substance)
-
-    return
-
-def set_substance (substance):
+def set_substances (substances) -> None:
     database = mongoDB.Substances()
 
-    searchCriteria = {
-        "source": substance["source"],
-        "deleted": False
-    }
+    new_substances = []
+    changed_substances = []
+    deleted_substances = []
 
-    existingSubstances = database.get_substances(searchCriteria)
+    found_substances_urls = []
 
-    if existingSubstances.__len__() == 0:
-        database.insert_substance(substance)
-    
-    else:
-        if existingSubstances.__len__() == 1:
-            existingSubstance = existingSubstances[0]
+    for substance in substances:
+        existing_substances = database.get_substances(
+            searchCriteria = {
+                "source": substance['source'],
+                "deleted": False
+            }
+        )
+
+        if existing_substances.__len__() == 0:
+            new_substances.append(substance)
+        
+        else:
+            found_substances_urls.append( substance['source']['url'] )
+
+            if existing_substances.__len__() == 1:
+                # ToDo: Wann Update?
+
+                pass
             
-            if existingSubstance["last_modified"] != substance["last_modified"]:
-                database.update_substance_by_id(existingSubstance["_id"], substance)
-
             else:
-                # Wenn last_modified unverändert ist, sollte die Substanz in der Datenbank die erhaltene wie die Übergebene aussehen
+                # ToDo: Wass wenn mehrere Ergebnisse?
+
                 pass
 
-        else:
-            pass # ToDo: Was wenn zu einer Quelle + Smiles mehr als ein Datensatz existiert?
+    deleted_substances = database.get_substances(
+        searchCriteria = {
+            "source": {
+                "url": { "$nin": found_substances_urls }
+            },
+            "deleted": False
+        }
+    )
 
-    return
+    for deleted_substance in deleted_substances:
+        deleted_substance['deleted'] = True
+        deleted_substance['last_modified'] = datetime.now().isoformat()
+
+        changed_substances.append(deleted_substance)
+
+    database.insert_substances(new_substances)
+    database.update_substances(changed_substances)
+
+    return None
 
 def get_substances (searchCriteria) -> list:
     database = mongoDB.Substances()
