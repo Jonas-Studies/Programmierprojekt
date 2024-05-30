@@ -38,6 +38,8 @@ def set_substances (substances) -> None:
     deleted_substances = database.get_substances(
         searchCriteria = {
             "source": {
+                # Setzt vorraus das alle Substanzen von derselben Quelle stammen
+                "name": substances[0]['source']['name'],
                 "url": { "$nin": found_substances_urls }
             },
             "deleted": False
