@@ -1,14 +1,8 @@
-from Source.substance import validator
 from Source.database import mongoDB
 
 def set_substances (substances):
-    #if validator.SubstancesAreValid(substances) == True:
-    if True == True:
-        for substance in substances:
-            set_substance(substance)
-
-    else:
-        pass
+    for substance in substances:
+        set_substance(substance)
 
     return
 
