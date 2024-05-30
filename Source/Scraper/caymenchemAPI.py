@@ -120,4 +120,17 @@ class CaymanChemAPI:
                                       deleted=False,
                                       last_modified=datetime.now()))
         return chemicals
-    
+
+def get_raptas() -> list[dict]:
+    URL = 'https://www.caymanchem.com/solr/cchRAPTA/select?q=*:*&rows=999999&wt=json'
+
+    raptas = []
+
+    response = requests.request("GET", url)
+
+    if response.status_code == 200:
+        response = json.loads(response.text)
+
+        raptas = response['response']['docs']
+
+    return raptas
