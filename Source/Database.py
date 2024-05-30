@@ -1,8 +1,8 @@
-from Source.Substance import Validator as SubstanceValidator
-from Source.Database import MongoDB
+from Source.substance import validator
+from Source.database import mongoDB
 
 def set_substances (substances):
-    if SubstanceValidator.SubstancesAreValid(substances) == True:
+    if validator.SubstancesAreValid(substances) == True:
         for substance in substances:
             set_substance(substance)
 
@@ -12,7 +12,7 @@ def set_substances (substances):
     return
 
 def set_substance (substance):
-    database = MongoDB.Substances()
+    database = mongoDB.Substances()
 
     searchCriteria = {
         "source": substance["source"],
@@ -41,7 +41,7 @@ def set_substance (substance):
     return
 
 def get_substances (searchCriteria) -> list:
-    database = MongoDB.Substances()
+    database = mongoDB.Substances()
 
     result = database.get_substances(searchCriteria)
 
