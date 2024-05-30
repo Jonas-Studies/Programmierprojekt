@@ -19,12 +19,12 @@ class Substances:
 
         return
 
-    def InsertSubstance (self, substance) -> None:
+    def insert_substance (self, substance) -> None:
         self.collection.insert_one(substance)
 
         return
     
-    def UpdateSubstanceByID(self, id, substance) -> None:
+    def update_substance_by_id(self, id, substance) -> None:
         searchCriterias = {
             "_id": id
         }
@@ -33,7 +33,7 @@ class Substances:
 
         return
     
-    def GetSubstances (self, searchCriteria) -> list:
+    def get_substances (self, searchCriteria) -> list:
         substances = self.collection.find(searchCriteria)
 
         result = []
