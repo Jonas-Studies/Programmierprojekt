@@ -10,13 +10,18 @@ def get_substances_from_caymenchem() -> list[dict]:
     products = caymenchemAPI.get_products()
 
     for product in products:
-        names = product['exactname'][1:] + product.get('synonyms', [])
+        names = []
+
+        names.append(product['exactname'][1])
+
+        for synonym in product.get('synonyms', []):
+            names.append(BeautifulSoup(synonym, 'html.parser').get_text())
 
         categories = []
 
         # Laden der Kategorien mittels binary-search
-        for rapta in raptas:
-            rapta_full = get_rapta_from_raptas(raptas = raptas, id = rapta['id'])
+        for rapta in product['raptas']:
+            rapta_full = get_rapta_from_raptas(raptas = raptas, id = rapta)
 
             if rapta_full is not None:
                 categories.append(rapta_full['text'])
