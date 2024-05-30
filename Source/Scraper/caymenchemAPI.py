@@ -126,7 +126,7 @@ def get_raptas() -> list[dict]:
 
     raptas = []
 
-    response = requests.request("GET", url)
+    response = requests.request("GET", URL)
 
     if response.status_code == 200:
         response = json.loads(response.text)
