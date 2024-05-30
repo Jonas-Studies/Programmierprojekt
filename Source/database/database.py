@@ -2,7 +2,8 @@ from Source.substance import validator
 from Source.database import mongoDB
 
 def set_substances (substances):
-    if validator.SubstancesAreValid(substances) == True:
+    #if validator.SubstancesAreValid(substances) == True:
+    if True == True:
         for substance in substances:
             set_substance(substance)
 
@@ -22,7 +23,7 @@ def set_substance (substance):
     existingSubstances = database.get_substances(searchCriteria)
 
     if existingSubstances.__len__() == 0:
-        database.insert_substances(substance)
+        database.insert_substance(substance)
     
     else:
         if existingSubstances.__len__() == 1:
