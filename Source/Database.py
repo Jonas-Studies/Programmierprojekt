@@ -1,17 +1,17 @@
 from Source.Substance import Validator as SubstanceValidator
 from Source.Database import MongoDB
 
-def SetSubstances (substances):
+def set_substances (substances):
     if SubstanceValidator.SubstancesAreValid(substances) == True:
         for substance in substances:
-            SetSubstance(substance)
+            set_substance(substance)
 
     else:
         pass
 
     return
 
-def SetSubstance (substance):
+def set_substance (substance):
     Database = MongoDB.Substances()
 
     searchCriteria = {
@@ -40,7 +40,7 @@ def SetSubstance (substance):
 
     return
 
-def GetSubstances (searchCriteria) -> list:
+def get_substances (searchCriteria) -> list:
     Database = MongoDB.Substances()
 
     result = Database.GetSubstances(searchCriteria)
