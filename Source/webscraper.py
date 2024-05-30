@@ -1,8 +1,7 @@
 from bs4 import BeautifulSoup
 
 from Source.scraper import caymenchemAPI
-
-from Source import substance
+from Source.substance import substance
 
 def get_substances_from_caymenchem() -> list[dict]:
     substances = []
