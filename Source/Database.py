@@ -12,24 +12,24 @@ def set_substances (substances):
     return
 
 def set_substance (substance):
-    Database = MongoDB.Substances()
+    database = MongoDB.Substances()
 
     searchCriteria = {
         "source": substance["source"],
         "deleted": False
     }
 
-    existingSubstances = Database.GetSubstances(searchCriteria)
+    existingSubstances = database.get_substances(searchCriteria)
 
     if existingSubstances.__len__() == 0:
-        Database.InsertSubstance(substance)
+        database.insert_substances(substance)
     
     else:
         if existingSubstances.__len__() == 1:
             existingSubstance = existingSubstances[0]
             
             if existingSubstance["last_modified"] != substance["last_modified"]:
-                Database.UpdateSubstanceByID(existingSubstance["_id"], substance)
+                database.update_substance_by_id(existingSubstance["_id"], substance)
 
             else:
                 # Wenn last_modified unverändert ist, sollte die Substanz in der Datenbank die erhaltene wie die Übergebene aussehen
@@ -41,8 +41,8 @@ def set_substance (substance):
     return
 
 def get_substances (searchCriteria) -> list:
-    Database = MongoDB.Substances()
+    database = MongoDB.Substances()
 
-    result = Database.GetSubstances(searchCriteria)
+    result = database.get_substances(searchCriteria)
 
     return result
