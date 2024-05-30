@@ -2,7 +2,7 @@ import aiohttp
 from datetime import datetime
 import json
 from bs4 import BeautifulSoup
-
+import requests
 
 class Rapta:
     def __init__(self, id: str, parent_id: str, root_id: str, text: str):
@@ -134,3 +134,17 @@ def get_raptas() -> list[dict]:
         raptas = response['response']['docs']
 
     return raptas
+
+def get_products() -> list[dict]:
+    URL = "https://www.caymanchem.com/solr/cchProduct/select?q=*:*&qf=catalogNum^2000 exactname^5000 exactSynonyms^4000 edgename^4000 synonymsPlain^2000 formalNameDelimited^1500 vendorItemNumber^4000 casNumber^10000 name^1500 ngram_name^1000 delimited_name^1500 tagline^0.01 keyInformation^0.01 keywords^200 inchi^20000 inchiKey^20000 smiles^20000 ngram_synonym^400 ngram_general^0.01&rows=25&defType=edismax&q.op=AND&enableElevation=true&bq=&facet=true&facet.field=newProduct&facet.field=raptas&facet.field=isAssayKit&facet.field=isParent&facet.field=isIsomer&facet.field=isMetabolite&facet.field=isMixtureOrPanel&facet.field=isSingleComponent&facet.field=modelGroupId&facet.field=modelGroupId&facet.field=deaSchedule&facet.field=deaExempt&facet.field=canadaExempt&facet.limit=100000&facet.mincount=1&wt=json&fq=(websiteNotSearchable:false AND europeOnly:false AND !raptas:RAP000101 AND !raptas:RAP000100) AND raptas:RAP000189&start=0&bust=7k1vlfe36ov&version=2.2&sort=activationDate desc&facet.range=deaSchedule&f.deaSchedule.facet.range.start=-1&f.deaSchedule.facet.range.end=1&f.deaSchedule.facet.range.gap=1&f.deaSchedule.facet.range.other=all"
+
+    products = []
+
+    response = requests.request("GET", URL)
+
+    if response.status_code == 200:
+        response = json.loads(response.text)
+
+        products = response['response']['docs']
+
+    return products
