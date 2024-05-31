@@ -14,7 +14,7 @@ def main ():
     changed_substances = []
 
     # Eingeschränktes for-statement für tests
-    for scraped_substances_index in range(0, 10):
+    for scraped_substances_index in range(0, 12):
         scraped_substance = scraped_substances[scraped_substances_index]
     
     # For-statement für fertige Anwendung
@@ -39,10 +39,10 @@ def main ():
 
         changed_substances.append(remaining_substance)
 
-    if new_substances.__len__() != 0:
+    if len(new_substances) != 0:
         database.insert_substances(new_substances)
     
-    if changed_substances.__len__() != 0:
+    if len(changed_substances) != 0:
         database.update_substances(changed_substances)
 
     return
