@@ -1,4 +1,4 @@
-import mongoDB
+from Source.database import mongoDB
 
 def set_substances (substances) -> None:
     database = mongoDB.Substances()
@@ -22,6 +22,20 @@ def set_substances (substances) -> None:
 
     database.insert_substances(new_substances)
     database.update_substances(changed_substances)
+
+    return None
+
+def insert_substances(substances) -> None:
+    database = mongoDB.Substances()
+
+    database.insert_substances(substances)
+
+    return None
+
+def update_substances(substances) -> None:
+    database = mongoDB.Substances()
+
+    database.update_substances(substances)
 
     return None
 
