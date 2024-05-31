@@ -1,13 +1,12 @@
 from datetime import datetime
 
-from Source.database import mongoDB
+import mongoDB
 
 def set_substances (substances) -> None:
     database = mongoDB.Substances()
 
     new_substances = []
     changed_substances = []
-    deleted_substances = []
 
     found_substances_urls = []
 

@@ -1,4 +1,4 @@
-from Source import webscraper
+from Source.webscraper import webscraper
 from Source.database import database
 
 def main ():
