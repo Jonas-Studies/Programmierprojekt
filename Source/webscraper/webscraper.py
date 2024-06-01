@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from Source.webscraper import caymenchemAPI
 from Source.substance import substance
 
-def get_substances_from_caymenchem() -> list[dict]:
+def get_substances_from_caymanchem() -> list[dict]:
     substances = []
 
     raptas = caymenchemAPI.get_raptas()

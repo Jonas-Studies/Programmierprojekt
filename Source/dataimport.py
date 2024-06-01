@@ -2,7 +2,7 @@ from Source.webscraper import webscraper
 from Source.database import database
 
 def import_data_from_caymanchem() -> None:
-    scraped_substances = webscraper.get_substances_from_caymenchem()
+    scraped_substances = webscraper.get_substances_from_caymanchem()
     existing_substances = database.get_activeSubstances_by_sourceName("Caymanchem")
 
     new_substances = []
