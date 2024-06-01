@@ -1,7 +1,7 @@
 from Source.webscraper import webscraper
 from Source.database import database
 
-def main ():
+def import_data_from_caymanchem() -> None:
     scraped_substances = webscraper.get_substances_from_caymenchem()
     existing_substances = database.get_substances(
         searchCriteria = {
@@ -44,7 +44,5 @@ def main ():
     
     if len(changed_substances) != 0:
         database.update_substances(changed_substances)
-
-    return
-
-main()
+    
+    return None
