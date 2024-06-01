@@ -1,13 +1,13 @@
 from bs4 import BeautifulSoup
 
-from Source.webscraper import caymenchemAPI
+from Source.webscraper import caymanchemAPI
 from Source.substance import substance
 
 def get_substances_from_caymanchem() -> list[dict]:
     substances = []
 
-    raptas = caymenchemAPI.get_raptas()
-    products = caymenchemAPI.get_products()
+    raptas = caymanchemAPI.get_raptas()
+    products = caymanchemAPI.get_products()
 
     for product in products:
         names = []
