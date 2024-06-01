@@ -39,6 +39,14 @@ def update_substances(substances) -> None:
 
     return None
 
+def get_activeSubstances_by_sourceName (sourceName: str) -> list[dict]:
+    return get_substances(
+        searchCriteria = {
+            "source.name": sourceName,
+            "deleted": False
+        }
+    )
+
 def get_substances (searchCriteria) -> list:
     database = mongoDB.Substances()
 
