@@ -19,45 +19,31 @@ class Substances:
 
         return None
 
-    def insert_substance (self, substance) -> None:
-        self.collection.insert_one(substance)
-
-        return None
-
-    def insert_substances (self, substances) -> None:
+    def insert_substances (self, substances: list[dict]) -> None:
         self.collection.insert_many(substances)
 
         return None
+
+    def update_substances (self, substances: list[dict]) -> None:
+        for substance in substances:
+            id = substance.get('id', None)
+
+            if id is not None:
+                self.update_substance_by_id(substance, id)
+
+        return None
     
-    def update_substance (self, substance) -> None:
+    def update_substance_by_id(self, substance: dict, id: str) -> None:
         self.collection.replace_one(
-            filter = {
-                "_id": substance['_id']
-            },
-            replacement = substance
+            filter = { "_id": id }, replacement = substance
         )
 
         return None
-
-    def update_substances (self, substances) -> None:
-        for substance in substances:
-            self.update_substance(substance)
-
-        return None
     
-    def update_substance_by_id(self, id, substance) -> None:
-        searchCriterias = {
-            "_id": id
-        }
-
-        self.collection.replace_one(searchCriterias, substance)
-
-        return None
-    
-    def get_substances (self, searchCriteria) -> list[dict]:
-        substances = self.collection.find(searchCriteria)
-
+    def get_substances (self, searchCriteria: dict) -> list[dict]:
         result = []
+
+        substances = self.collection.find(searchCriteria)
 
         for substance in substances:
             result.append(substance)
