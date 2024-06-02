@@ -1,6 +1,8 @@
 .obsidian/
+.vscode/
 
 __pycache__
 Source/Database/Data
+/venv/
 
 test.py

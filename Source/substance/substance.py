@@ -15,7 +15,7 @@ def get_new_substance (
     ):
 
     return {
-        "version": "1.0",       
+        "version": "1.0",
         "smiles": smiles,
         "names": names,
         "iupac_names": iupac_names,
