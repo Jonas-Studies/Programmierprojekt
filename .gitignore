@@ -9,3 +9,5 @@ test.py
 
 /Source/Database/Data/*
 !/Source/Database/Data/.gitkeep
+
+/Source/Searchengine/node_modules/
