@@ -1,0 +1,1 @@
+call Source\Database\MongoDB\mongod.exe --dbpath Source\Database\Data
