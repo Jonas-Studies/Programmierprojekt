@@ -1,0 +1,19 @@
+.align-horizontally {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.align-vertically {
+    display: flex;
+    flex-direction: column;
+    height: 100%
+}
+
+.align-vertically .align-centerd {
+    justify-content: center;
+}
+
+.align-horizontally .align-centerd {
+    align-items: center;
+}
