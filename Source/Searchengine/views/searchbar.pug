@@ -1,6 +1,6 @@
 mixin searchbar
     div(id="searchbar" class="align-horizontally align-centered")
-        form
+        form(action="/searchresults")
             button(type="button")= "Optionen"
-            input(type="text" placeholder="Suchbegriff eingeben")
+            input(type="text" name="keywords" placeholder="Suchbegriff eingeben" required="required")
             button(type="submit")= "Suchen"
