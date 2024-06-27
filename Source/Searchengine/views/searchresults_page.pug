@@ -19,7 +19,7 @@ html(lang="en")
         section(class="align-vertically")
             if substances != undefined && substances.length != undefined && substances.length > 0
                 each substance in substances
-                    section(class="align-horizontally")
+                    section(class="align-horizontally align-centered")
                         + searchresult( substance )
             else
                 p= "Could not find any substances"
