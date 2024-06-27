@@ -1,24 +1,18 @@
 #navbar {
-    padding: 10px;
-    border-bottom: 1px solid black;
+    padding: 16px;
+    
+    background-color: #f8f9fa;
+    border-bottom: 4px solid #cccccc;
+    box-shadow: 0 6px 6px -4px rgba(0, 0, 0, 0.2);
 }
 
-#navbar .navbar-title {
-    color:black;
+.navbar-title {
+    font-size: 24px;
+    color: #333;
     text-decoration: none;
+    font-weight: bold;
 }
-
-#navbar .navbar-title:visited {
-    color:black;
-    text-decoration: none;
-}
-
-#navbar .navbar-title:hover {
-    color:black;
-    text-decoration: underline;
-}
-
-#navbar .navbar-title:active {
-    color:black;
-    text-decoration: none;
+  
+.navbar-title:hover {
+    color: #6a0dad;
 }
