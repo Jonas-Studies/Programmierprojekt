@@ -9,14 +9,15 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet" href="/css/aligment.css")
+        link(rel="stylesheet" href="/css/navbar.css")
         link(rel="stylesheet" href="/css/searchresults_page.css")
         title DrugSearchEngine
-    body(class="align-vertically")
+    body(class="align-vertically gap-2")
         header
             + navbar()
         section 
             + searchbar()
-        section(class="align-vertically")
+        section(class="align-vertically gap-1")
             if substances != undefined && substances.length != undefined && substances.length > 0
                 each substance in substances
                     section(class="align-horizontally align-centered")

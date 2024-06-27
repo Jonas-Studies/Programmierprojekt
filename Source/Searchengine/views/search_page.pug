@@ -8,10 +8,11 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         link(rel="stylesheet" href="/css/aligment.css")
+        link(rel="stylesheet" href="/css/navbar.css")
         link(rel="stylesheet" href="/css/search_page.css")
         title DrugSearchEngine
     body(class="align-vertically" style="height: 100vh")
         header
             + navbar()
-        section(class="align-horizontally align-centered")
+        section(class="align-vertically align-centered")
             + searchbar()
