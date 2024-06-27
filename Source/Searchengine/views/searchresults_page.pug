@@ -2,6 +2,7 @@ doctype html
 
 include navbar
 include searchbar
+include searchresult
 
 html(lang="en")
     head
@@ -15,3 +16,8 @@ html(lang="en")
             + navbar()
         section 
             + searchbar()
+        section(class="align-vertically")
+            section(class="align-horizontally")
+                + searchresult( { url:"https://droger.com/viele/koks", source:"pilzpark" } )
+            section(class="align-horizontally")
+                + searchresult( { url:"https://droger.com/viele/heroin", source:"pilzpark" } )

@@ -10,10 +10,10 @@
     height: 100%
 }
 
-.align-vertically .align-centerd {
+.align-vertically .align-centered {
     justify-content: center;
 }
 
-.align-horizontally .align-centerd {
+.align-horizontally .align-centered {
     align-items: center;
 }
