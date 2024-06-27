@@ -1,17 +1,15 @@
-doctype html
+extends layout
 
-include navbar
-include searchbar
-include searchresult
+block includes
+    include searchresult
 
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet" href="/css/aligment.css")
-        link(rel="stylesheet" href="/css/navbar.css")
-        link(rel="stylesheet" href="/css/searchresults_page.css")
-        title DrugSearchEngine
+block links
+    link(rel="stylesheet" href="css/searchresults_page.css")
+
+block title
+    title= "Drug-Search-Engine results"
+
+block content
     body(class="align-vertically gap-2")
         header
             + navbar()
