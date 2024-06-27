@@ -17,7 +17,9 @@ html(lang="en")
         section 
             + searchbar()
         section(class="align-vertically")
-            section(class="align-horizontally")
-                + searchresult( { url:"https://droger.com/viele/koks", source:"pilzpark" } )
-            section(class="align-horizontally")
-                + searchresult( { url:"https://droger.com/viele/heroin", source:"pilzpark" } )
+            if substances != undefined && substances.length != undefined && substances.length > 0
+                each substance in substances
+                    section(class="align-horizontally")
+                        + searchresult( substance )
+            else
+                p= "Could not find any substances"

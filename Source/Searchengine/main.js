@@ -23,7 +23,14 @@ app.use(
     function (request, response, next) {
         console.info('Recieved request to display the search-results page')
 
-        response.status(200).render('searchresults_page')
+        const substances_model = require('./models/substances')
+
+        const substances = substances_model.get_many_by_searchArguments(undefined)
+
+        response.status(200).render(
+            'searchresults_page',
+            { substances: substances }
+        )
     }
 )
 
