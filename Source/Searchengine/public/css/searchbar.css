@@ -1,0 +1,29 @@
+#searchbar {
+    border: 2px solid #cccccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+#searchbar input[type="text"] {
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+    flex-grow: 1;
+    border-right: inherit;
+    border-left: inherit;
+}
+
+#searchbar button {
+    background-color: #e0e0e0;
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#searchbar button:hover {
+    background-color: #cccccc;
+}
