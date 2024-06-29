@@ -8,6 +8,9 @@ from rdkit import Chem
 from rdkit.Chem.rdmolfiles import MolFromSmiles, MolToSmiles
 from rdkit.Chem.rdMolDescriptors import CalcExactMolWt
 
+
+MAX_MASS_ERROR = 0.1
+
     
 def _count_molecules(formula) -> Counter:
     element_pattern = re.compile(r'^([A-Z][a-z]*)(\d*)')
@@ -134,12 +137,33 @@ def validate_substance_properties(substance):
     
     
     # Get molecular mass and compare with 0.1 precision
-    # molecular_mass = CalcExactMolWt(chem)
-    # if abs(molecular_mass - substance['molecular_mass']) > 0.1:
-    #     raise ValueError('Molecular mass is not correct')
+    molecular_mass = CalcExactMolWt(chem)
+    if abs(molecular_mass - substance['molecular_mass']) > MAX_MASS_ERROR:
+        raise ValueError('Molecular mass is not correct')
     
     
     # Compare molecular formula with rdkit
     if not _smiles_equal_molecular_formula(canonical_smiles, substance['chemical_formula']):
         raise ValueError('Chemical formula is not correct')
+
+
+def fix_substance(substance):
+    # Fix smiles
+    chem = MolFromSmiles(substance['smiles'])
+    if chem is None:
+        raise ValueError('Invalid smiles')
     
+    # Get canonical smiles
+    substance['smiles'] = MolToSmiles(chem, canonical=True)
+    
+    # Fix inchi and inchi key
+    substance['inchi'] = Chem.MolToInchi(chem)
+    substance['inchi_key'] = Chem.InchiToInchiKey(substance['inchi'])
+    
+    # Fix molecular mass
+    substance['molecular_mass'] = CalcExactMolWt(chem)
+    
+    # Fix chemical formula
+    substance['chemical_formula'] = Chem.rdMolDescriptors.CalcMolFormula(chem)
+    
+    return substance

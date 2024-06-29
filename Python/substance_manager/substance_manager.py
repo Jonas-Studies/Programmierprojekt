@@ -34,3 +34,19 @@ def get_new_substance (
         "last_modified": datetime.now().isoformat(),
         "details": {}
     }
+
+def are_substances_equal(substance1, substance2):
+    return (
+        substance1['version'] == substance2['version'] and
+        substance1['smiles'] == substance2['smiles'] and
+        substance1['names'] == substance2['names'] and
+        substance1['iupac_names'] == substance2['iupac_names'] and
+        substance1['formula'] == substance2['formula'] and
+        substance1['inchi'] == substance2['inchi'] and
+        substance1['inchi_key'] == substance2['inchi_key'] and
+        substance1['molecular_mass'] == substance2['molecular_mass'] and
+        substance1['cas_num'] == substance2['cas_num'] and
+        substance1['categories'] == substance2['categories'] and
+        substance1['source']['url'] == substance2['source']['url']
+    )
+    
