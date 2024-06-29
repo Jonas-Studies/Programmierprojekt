@@ -1,21 +1,21 @@
-from Source.database import mongoDB
+from . import MongoDB
 
 def insert_substances(substances) -> None:
-    database = mongoDB.Substances()
+    database = MongoDB.Substances()
 
     database.insert_substances(substances)
 
     return None
 
 def update_substances(substances) -> None:
-    database = mongoDB.Substances()
+    database = MongoDB.Substances()
 
     database.update_substances(substances)
 
     return None
 
 def get_activeSubstances_by_sourceName (sourceName: str) -> list[dict]:
-    substances = mongoDB.Substances()
+    substances = MongoDB.Substances()
 
     result = substances.get_substances(
         searchCriteria = {

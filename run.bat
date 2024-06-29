@@ -1,1 +1,1 @@
-call Source\Database\MongoDB\mongod.exe --dbpath Source\Database\Data
+call Database\MongoDB\mongod.exe --dbpath Database\Data

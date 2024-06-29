@@ -50,7 +50,14 @@
             "type": "number"
         },
         "cas_num": {
-            "type": "string"
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "categories": {
             "type": "array",

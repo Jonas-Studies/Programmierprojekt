@@ -2,6 +2,7 @@ from collections import Counter
 import jsonschema
 import json
 import re
+import os
 
 
 from rdkit import Chem
@@ -83,12 +84,15 @@ def validate_substance(substance):
     validate_substance_schema(substance)
     validate_substance_properties(substance)
 
-
+substance_schema = None
 def validate_substance_schema(substance):
-    with open('schema.json') as f:
-        schema = json.load(f)
+    global substance_schema
+    
+    if substance_schema is None:
+        with open(os.path.join(os.path.dirname(__file__), 'schema.json')) as f:
+            substance_schema = json.load(f)
         
-    jsonschema.validate(substance, schema)
+    jsonschema.validate(substance, substance_schema)
 
 
 def validate_substance_properties(substance):
@@ -106,7 +110,7 @@ def validate_substance_properties(substance):
       - source
       - categories
       - cas_number
-      - chemical_formula
+      - formula
     """
     
     # Check if version is correct
@@ -143,11 +147,28 @@ def validate_substance_properties(substance):
     
     
     # Compare molecular formula with rdkit
-    if not _smiles_equal_molecular_formula(canonical_smiles, substance['chemical_formula']):
+    if not _smiles_equal_molecular_formula(canonical_smiles, substance['formula']):
         raise ValueError('Chemical formula is not correct')
 
 
 def fix_substance(substance):
+    """
+    Fixed Properties:
+      - version
+      - smiles
+      - inchi
+      - inchi_key
+      - molecular_mass
+      
+    Unfixed Properties:
+      - names
+      - iupac_names
+      - source
+      - categories
+      - cas_number
+      - formula
+    """
+    
     # Fix smiles
     chem = MolFromSmiles(substance['smiles'])
     if chem is None:
@@ -164,6 +185,7 @@ def fix_substance(substance):
     substance['molecular_mass'] = CalcExactMolWt(chem)
     
     # Fix chemical formula
-    substance['chemical_formula'] = Chem.rdMolDescriptors.CalcMolFormula(chem)
+    formula = Chem.rdMolDescriptors.CalcMolFormula(chem)
+    substance['formula'] = formula
     
     return substance

@@ -7,7 +7,7 @@ __pycache__
 test.py
 *.log
 
-/Source/Database/Data/*
-!/Source/Database/Data/.gitkeep
+/Database/Data/*
+!/Database/Data/.gitkeep
 
 /Source/Searchengine/node_modules/
