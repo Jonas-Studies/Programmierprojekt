@@ -1,6 +1,28 @@
 mixin searchresult (substance)
-    section(class="align-vertically")
-        div(class="align-horizontally")
-            a(href="#")= substance.source.url
-        div(class="align-horizontally")
-            span= "Source: " + substance.source.name
+    div(class="searchresult")
+        section(class="align-vertically gap-1")
+            header(class="align-vertically")
+                div(class="align-horizontally")
+                    a(href= substance.source.url)= substance.source.url
+                div(class="align-horizontally")
+                    section(class="align-vertically")
+                        section(class="align-horizontally gap-1")
+                            span= "Source: " + substance.source.name
+                            span= "Name: " + substance.names[0]
+                            span= "Formula: " + substance.formula
+                        span= "SMILES: " + substance.smiles
+            hr
+            section(class="searchresult-details align-vertically")
+                section(class="align-horizontally gap-5")
+                    section(class="align-vertically")
+                        span= "Molecular mass: " + substance.molecular_mass
+                        span= "CAS Number: " + substance.cas_num
+                        span= "Inchi key:" + substance.inchi_key
+                    hr
+                    section(class="align-vertically")
+                        ul= "Names:"
+                            each name in substance.names
+                                li= name
+                            each iupac_name in substance.iupac_names
+                                li= iupac_name
+                span= substance.inchi

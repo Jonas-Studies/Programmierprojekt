@@ -1,0 +1,9 @@
+.searchresult {
+}
+
+.searchresult-details {
+    white-space: nowrap;
+    overflow-x: scroll;
+
+    display: none;
+}
