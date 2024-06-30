@@ -5,6 +5,7 @@ block includes
 
 block links
     link(rel="stylesheet" href="css/searchresults_page.css")
+    link(rel="stylesheet" href="css/searchresult.css")
 
 block title
     title= "Drug-Search-Engine results"
@@ -13,12 +14,11 @@ block content
     body(class="align-vertically gap-2")
         header
             + navbar()
-        section 
-            + searchbar()
-        section(class="align-vertically gap-1")
-            if substances != undefined && substances.length != undefined && substances.length > 0
-                each substance in substances
-                    section(class="align-horizontally align-centered")
+        section(class="align-horizontally align-centered")
+            section(class="align-vertically gap-1" style="width: 75%")
+                + searchbar()
+                if substances != undefined && substances.length != undefined && substances.length > 0
+                    each substance in substances
                         + searchresult( substance )
-            else
-                p= "Could not find any substances"
+                else
+                    p= "Could not find any substances"
