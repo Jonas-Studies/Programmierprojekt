@@ -1,9 +1,7 @@
 from pymongo import MongoClient
 
-MONGODB_HOSTNAME = "localhost"
-MONGODB_PORT = 27017
+from settings import MONGODB_HOSTNAME, MONGODB_PORT, DATABASE_NAME
 
-DATABASE_NAME = "designerdrugdatabase"
 
 class Substances:
     COLLECTION_NAME = "substances"

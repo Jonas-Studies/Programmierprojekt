@@ -1,6 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor
 import requests
-import logging
 import json
 import re
 import os

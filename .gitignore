@@ -6,7 +6,11 @@ __pycache__
 
 *.log
 
-/Exports/
+/Exports/*
+!/Exports/.gitkeep
+
+/Imports/*
+!/Imports/.gitkeep
 
 /Database/Data/*
 !/Database/Data/.gitkeep

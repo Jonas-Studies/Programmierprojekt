@@ -1,8 +1,7 @@
 import logging
 import os
 
-LOGGING_FILE = './Logs/log.log'
-LOGGING_LEVEL = logging.DEBUG
+from settings import LOGGING_FILE, LOGGING_LEVEL
 
 def setup_logger():
     os.makedirs(os.path.dirname(LOGGING_FILE), exist_ok=True)
