@@ -11,4 +11,4 @@ __pycache__
 /Database/Data/*
 !/Database/Data/.gitkeep
 
-/Source/Searchengine/node_modules/
+/Searchengine/node_modules/
