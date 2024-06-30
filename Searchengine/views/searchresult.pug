@@ -1,6 +1,6 @@
 mixin searchresult (substance)
     section(class="align-vertically")
         div(class="align-horizontally")
-            a(href="#")= substance.url
+            a(href="#")= substance.source.url
         div(class="align-horizontally")
-            span= "Source: " + substance.source
+            span= "Source: " + substance.source.name
