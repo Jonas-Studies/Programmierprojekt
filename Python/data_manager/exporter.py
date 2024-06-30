@@ -1,6 +1,5 @@
 from database import database
 
-from datetime import datetime
 import logging
 import json
 import os
@@ -18,9 +17,14 @@ def export_data(only_from_caymanchem: bool = False):
     for substance in substances:
         substance.pop("_id")
         
+    # Sort substances by SMILES
+    substances.sort(key=lambda x: x["smiles"])
+        
     # Export substances to a file
-    path = f"./exports/substances.json"
+    path = f"./Exports/substances.json"
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as file:
         json.dump(substances, file, indent=4)
+        
+    logging.info(f"Exported {len(substances)} substances to '{path}'.")
         

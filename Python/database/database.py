@@ -54,3 +54,10 @@ def get_substances() -> list[dict]:
     result = substances.get_substances()
 
     return result
+
+def clear_substances() -> None:
+    substances = MongoDB.Substances()
+
+    substances.clear_substances()
+
+    return None

@@ -35,6 +35,8 @@ def import_data_from_file(path: str, fix_substances: bool = False):
         logging.error(f"The file '{path}' does not contain a list of substances.")
         raise ValueError(f"The file '{path}' does not contain a list of substances.")
     
+    logging.info(f"Read {len(substances)} substances from '{path}'.")
+    
     import_data(substances, fix_substances)
     
 
@@ -43,6 +45,7 @@ def import_data_from_caymanchem(fix_substances: bool = False):
     substances = CaymanchemAPI.get_substances()
     logging.info(f"Scraped {len(substances)} substances from Caymanchem API.")
     import_data(substances, fix_substances)
+    
     
 def import_data(scraped_substances: list[dict], fix_substances: bool = False):
     # Substances with no smiles are ignored because these only contain null values.

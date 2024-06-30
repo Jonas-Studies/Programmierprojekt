@@ -1,8 +1,9 @@
-import os
-import re
-import json
-import requests
 from concurrent.futures import ThreadPoolExecutor
+import requests
+import logging
+import json
+import re
+import os
 
 from substance_manager.substance_manager import get_new_substance
 
@@ -27,7 +28,7 @@ class CaymanchemAPI:
             response = json.loads(response.text)
             substances = response['response']['docs']
         else:
-            substances = []
+            raise Exception(f"Failed to get substances from Caymanchem. Error code: {response.status_code}.")
             
         return substances
     
@@ -42,7 +43,7 @@ class CaymanchemAPI:
             response = json.loads(response.text)
             raptas = response['response']['docs']
         else:
-            raptas = []
+            raise Exception(f"Failed to get raptas from Caymanchem. Error code: {response.status_code}.")
             
         return raptas
     

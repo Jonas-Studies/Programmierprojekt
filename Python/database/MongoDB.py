@@ -65,3 +65,9 @@ class Substances:
             result.append(substance)
 
         return result
+    
+    def clear_substances (self) -> None:
+        self.collection.delete_many({})
+
+        return None
+    
