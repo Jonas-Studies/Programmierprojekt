@@ -25,3 +25,32 @@ def get_activeSubstances_by_sourceName (sourceName: str) -> list[dict]:
     )
 
     return result
+
+def get_substances_by_sourceName(sourceName: str) -> list[dict]:
+    substances = MongoDB.Substances()
+
+    result = substances.get_substances(
+        searchCriteria = {
+            "source.name": sourceName
+        }
+    )
+
+    return result
+
+def get_activeSubstances() -> list[dict]:
+    substances = MongoDB.Substances()
+
+    result = substances.get_substances(
+        searchCriteria = {
+            "deleted": False
+        }
+    )
+
+    return result
+
+def get_substances() -> list[dict]:
+    substances = MongoDB.Substances()
+
+    result = substances.get_substances()
+
+    return result

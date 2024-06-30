@@ -7,6 +7,8 @@ __pycache__
 test.py
 *.log
 
+/exports/
+
 /Database/Data/*
 !/Database/Data/.gitkeep
 
