@@ -13,6 +13,14 @@ def _get_logger(module_name):
     if module_name in loggers:
         return loggers[module_name]
     
+    logger = logging.getLogger(module_name)
+    logger.setLevel(LOGGING_LEVEL)
+    
+    loggers[module_name] = logger
+    return logger
+
+
+def setup_logger():
     os.makedirs(os.path.dirname(LOGGING_FILE), exist_ok=True)
     logging.basicConfig(
         format='%(asctime)s [%(levelname)-8s] %(name)-15s - %(message)s',
@@ -20,13 +28,8 @@ def _get_logger(module_name):
         encoding='utf-8',
         level=LOGGING_LEVEL
     )
-    
-    logger = logging.getLogger(module_name)
-    logger.setLevel(LOGGING_LEVEL)
-    
-    loggers[module_name] = logger
-    return logger
-    
+    logging.getLogger().setLevel(LOGGING_LEVEL)
+setup_logger()
 
 def debug(module_name, msg):
     _get_logger(module_name).debug(msg)

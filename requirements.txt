@@ -3,3 +3,4 @@ requests
 jsonschema
 rdkit
 pymongo
+numpy<2

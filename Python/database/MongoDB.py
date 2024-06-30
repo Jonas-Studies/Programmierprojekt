@@ -33,9 +33,25 @@ class Substances:
 
         return None
     
+    def update_substances_by_smiles (self, substances: list[dict]) -> None:
+        for substance in substances:
+            smiles = substance.get('smiles', None)
+
+            if smiles is not None:
+                self.update_substance_by_smiles(substance, smiles)
+
+        return None
+    
     def update_substance_by_id(self, substance: dict, id: str) -> None:
         self.collection.replace_one(
             filter = { "_id": id }, replacement = substance
+        )
+
+        return None
+    
+    def update_substance_by_smiles(self, substance: dict, smiles: str) -> None:
+        self.collection.replace_one(
+            filter = { "smiles": smiles }, replacement = substance
         )
 
         return None

@@ -4,14 +4,14 @@ import json
 import requests
 from concurrent.futures import ThreadPoolExecutor
 
-from Substance.substance import get_new_substance
+from substance_manager.substance_manager import get_new_substance
 
 class CaymanchemAPI:
     tags = set()
     
     def _clean_formatted_text(text: str) -> str:
         # Remove html tags with regex
-        text = re.sub(r'<[^>]*>', '', text)
+        return re.sub(r'<[^>]*>', '', text)
     
     def _clean_url(url: str) -> str:
         return url.replace('\n', '')
@@ -61,14 +61,18 @@ class CaymanchemAPI:
         substances = [
             get_new_substance(
                 smiles= substance.get('smiles', None),
-                names= [CaymanchemAPI._clean_formatted_text(name) for name in substance['exactname'][1:] + substance.get('synonyms', [])],
-                iupac_names= [substance.get('formalNamePlain', None)],
-                chemical_formula= CaymanchemAPI._clean_formatted_text(substance.get('molecularFormula', '')),
-                inchi= substance.get('inchi', None),
-                inchi_key= substance.get('inchiKey', None),
-                molecular_mass= substance.get('formulaWeight', None),
-                cas_number= substance.get('casNumber', None),
-                categories= [raptas[rapta_id]['text'] for rapta_id in substance['raptas'] if rapta_id in raptas],
+                names= [name for name in
+                        [CaymanchemAPI._clean_formatted_text(name) for name in substance['exactname'][1:] + substance.get('synonyms', [])]
+                        if type(name) == str],
+                iupac_names= [substance['formalNamePlain']] if 'formalNamePlain' in substance else [],
+                formula= CaymanchemAPI._clean_formatted_text(substance.get('molecularFormula', '')),
+                inchi= substance.get('inchi', ''),
+                inchi_key= substance.get('inchiKey', ''),
+                molecular_mass= substance.get('formulaWeight', 0),
+                cas_number= substance.get('casNumber', ''),
+                categories= [raptas[rapta_id]['text']
+                             for rapta_id in substance['raptas']
+                             if rapta_id in raptas and type(raptas[rapta_id]['text']) == str],
                 source_url= 'https://www.caymanchem.com/product/' + substance['catalogNum'],
                 source_name= 'Caymanchem',
             )
