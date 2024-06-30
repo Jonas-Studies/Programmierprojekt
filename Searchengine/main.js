@@ -11,7 +11,7 @@ app.use(express.static('./public'))
 
 app.use(
     '/search',
-    function (request, response, next) {
+    async function (request, response, next) {
         console.info('Recieved request to display the search page')
 
         response.status(200).render('search_page')
@@ -20,12 +20,14 @@ app.use(
 
 app.use(
     '/searchresults',
-    function (request, response, next) {
+    async function (request, response, next) {
         console.info('Recieved request to display the search-results page')
 
         const substances_model = require('./models/substances')
 
-        const substances = substances_model.get_many_by_searchArguments(undefined)
+        const substances = await substances_model.get_many_by_searchCriteria(undefined)
+
+        console.info(substances)
 
         response.status(200).render(
             'searchresults_page',
@@ -36,7 +38,7 @@ app.use(
 
 app.use(
     '/',
-    function (request, response, next) {
+    async function (request, response, next) {
         console.info('Recieved request to display the main page')
 
         response.redirect('/search')
