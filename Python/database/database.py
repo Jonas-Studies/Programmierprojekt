@@ -10,7 +10,7 @@ def insert_substances(substances) -> None:
 def update_substances(substances) -> None:
     database = MongoDB.Substances()
 
-    database.update_substances(substances)
+    database.update_substances_by_smiles(substances)
 
     return None
 

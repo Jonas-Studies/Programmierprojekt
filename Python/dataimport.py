@@ -3,9 +3,30 @@ from database import database
 from substance_manager import substance_manager
 from validator import validator
 from logger import logger
-from concurrent.futures import ThreadPoolExecutor
-import functools
+from concurrent.futures import ProcessPoolExecutor
 
+from datetime import datetime
+import debugpy
+
+
+def _validate_substance(substance, fix_substances):
+    try:
+        validator.validate_substance_schema(substance)
+    except Exception as e:
+        return False
+    
+    try:
+        if fix_substances:
+            validator.fix_substance(substance)
+        else:
+            validator.validate_substance_properties(substance)
+            
+        substance['validated'] = True
+    except ValueError as e:
+        substance['validated'] = False
+    
+    return True
+        
 
 def import_data_from_caymanchem(fix_substances: bool = False):
     # Get all substances with smiles from Caymanchem
@@ -13,25 +34,22 @@ def import_data_from_caymanchem(fix_substances: bool = False):
     scraped_substances = CaymanchemAPI.get_substances()
     scraped_substances = [substance for substance in scraped_substances if substance['smiles'] is not None]
     
-    def _validate_substance_schema(s):
-        try:
-            validator.validate_substance_schema(s)
-        except Exception as e:
-            print(f"Schema validation failed on substance {s['smiles']}")
-            scraped_substances.remove(s)
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        executor.map(_validate_substance_schema, scraped_substances)
+    # When multiple substances have the same smiles, only the first substance is kept.
+    unique_substances = { substance['smiles']: substance for substance in reversed(scraped_substances) }
+    scraped_substances = list(unique_substances.values())
+    
+
+    with ProcessPoolExecutor(max_workers=12) as executor:
+        result = list(executor.map(
+            _validate_substance,
+            scraped_substances,
+            [fix_substances] * len(scraped_substances)
+        ))
+        # Remove invalid substances, start at end to avoid index issues
+        for index, valid in zip(range(len(result)-1, -1, -1), reversed(result)):
+            if not valid:
+                scraped_substances.pop(index)
         
-    for substance in scraped_substances:
-        try:
-            if fix_substances:
-                validator.fix_substance(substance)
-            else:
-                validator.validate_substance_properties(substance)
-                
-            substance['validated'] = True
-        except ValueError as e:
-            substance['validated'] = False
     
     # Create a dictionary of existing substances for easier comparison
     existing_substances = database.get_activeSubstances_by_sourceName("Caymanchem")
@@ -39,6 +57,7 @@ def import_data_from_caymanchem(fix_substances: bool = False):
     
     new_substances = []
     changed_substances = []
+    
     
     for substance in scraped_substances:
         # Check if the substance is new
@@ -67,10 +86,13 @@ def import_data_from_caymanchem(fix_substances: bool = False):
         database.update_substances(deleted_substances)
 
 
-if __name__ == "__main__":    
-    import_data_from_caymanchem(fix_substances=True)
+if __name__ == "__main__":
+    start = datetime.now()
     
-    print("Data import completed")
+    import_data_from_caymanchem(fix_substances=False)
     
-    substances = database.get_activeSubstances_by_sourceName("Caymanchem")
+    elapsed = datetime.now() - start
+    
+    print(f"Data import completed, elapsed time: {elapsed}")
+    
     pass

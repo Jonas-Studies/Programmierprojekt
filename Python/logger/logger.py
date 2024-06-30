@@ -45,4 +45,3 @@ def error(module_name, msg):
 def critical(module_name, msg):
     _get_logger(module_name).critical(msg)
     
-    

@@ -5,7 +5,7 @@ import re
 import os
 
 
-from rdkit import Chem
+from rdkit import Chem, RDLogger
 from rdkit.Chem.rdmolfiles import MolFromSmiles, MolToSmiles
 from rdkit.Chem.rdMolDescriptors import CalcExactMolWt
 
@@ -84,14 +84,13 @@ def validate_substance(substance):
     validate_substance_schema(substance)
     validate_substance_properties(substance)
 
+
 substance_schema = None
-def validate_substance_schema(substance):
-    global substance_schema
+with open(os.path.join(os.path.dirname(__file__), 'schema.json')) as f:
+    substance_schema = json.load(f)
     
-    if substance_schema is None:
-        with open(os.path.join(os.path.dirname(__file__), 'schema.json')) as f:
-            substance_schema = json.load(f)
-        
+def validate_substance_schema(substance):
+    global substance_schema        
     jsonschema.validate(substance, substance_schema)
 
 
@@ -189,3 +188,9 @@ def fix_substance(substance):
     substance['formula'] = formula
     
     return substance
+
+
+def _setup_rdkit_logger():
+    lg = RDLogger.logger()
+    lg.setLevel(RDLogger.CRITICAL)
+_setup_rdkit_logger()
