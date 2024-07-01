@@ -1,12 +1,20 @@
-#searchbar {
+.searchbar {
     border: 2px solid #cccccc;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+
+    width: 500px;
+
+    font-size: 16px;
 }
 
-#searchbar input[type="text"] {
+.searchbar-header {
+    border-bottom: 2px solid #cccccc;
+}
+
+.searchbar-header input[type="text"] {
     border: none;
     outline: none;
     padding: 8px;
@@ -16,14 +24,47 @@
     border-left: inherit;
 }
 
-#searchbar button {
+.searchbar-header button {
     background-color: #e0e0e0;
     border: none;
+    width: 10%;
     padding: 8px 16px;
     font-size: 16px;
     cursor: pointer;
 }
 
-#searchbar button:hover {
+.searchbar-header button svg {
+    background-color: inherit;
+}
+
+.searchbar-header button:first-child {
+    border-right: 1px solid #cccccc;
+}
+
+.searchbar-header button:last-child {
+    border-left: 1px solid #cccccc;
+}
+
+.searchbar-header button:hover {
     background-color: #cccccc;
+}
+
+.searchbar-options {
+    display: none;
+}
+
+.searchbar-options-list {
+    border-right: 1px solid #cccccc;
+
+    padding: 10px;
+}
+
+.searchbar-options-body {
+    padding: 10px
+}
+
+.searchbar-options input {
+    border: 1px solid #cccccc;
+    border-radius: 2px;
+    font-size: 16px;
 }
