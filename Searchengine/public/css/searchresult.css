@@ -1,9 +1,10 @@
 .searchresult {
 }
 
+.searchresult-header {
+}
+
 .searchresult-details {
     white-space: nowrap;
-    overflow-x: scroll;
-
-    display: none;
+    overflow-x: auto;
 }
