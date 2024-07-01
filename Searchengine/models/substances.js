@@ -9,7 +9,15 @@ exports.get_many_by_searchCriteria = async function (searchCriteria) {
         async (collection) => {
             result = await collection.find(
                 {
-                    $text: { $search: searchCriteria.keyphrase }
+                    $or: [
+                        { 'formula': { $regex: searchCriteria.keyphrase, $options: 'i' } },
+                        { 'iupac_names': { $regex: searchCriteria.keyphrase, $options: 'i' } },
+                        { 'cas_num': { $regex: searchCriteria.keyphrase, $options: 'i' } },
+                        { 'smiles': { $regex: searchCriteria.keyphrase, $options: 'i' } },
+                        { 'inchi': { $regex: searchCriteria.keyphrase, $options: 'i' } },
+                        { 'inchi_key': { $regex: searchCriteria.keyphrase, $options: 'i' } },
+                        { 'names': { $regex: searchCriteria.keyphrase, $options: 'i' } }
+                    ]
                 }
             ).skip(0).limit(10).toArray()
         }
