@@ -6,6 +6,8 @@ import os
 
 
 def export_data(only_from_caymanchem: bool = False):
+    """Export substances to a JSON file in the 'Exports' folder.
+    """
     if only_from_caymanchem:
         substances = database.get_activeSubstances_by_sourceName("Caymanchem")
     else:
@@ -27,4 +29,4 @@ def export_data(only_from_caymanchem: bool = False):
         json.dump(substances, file, indent=4)
         
     logging.info(f"Exported {len(substances)} substances to '{path}'.")
-        
+    

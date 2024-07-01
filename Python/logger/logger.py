@@ -4,6 +4,8 @@ import os
 
 from settings import LOGGING_FILE, LOGGING_LEVEL
 
+
+# Log uncaught exceptions
 def handle_exception(exc_type, exc_value, exc_traceback):
     if issubclass(exc_type, KeyboardInterrupt):
         sys.__excepthook__(exc_type, exc_value, exc_traceback)
@@ -14,6 +16,7 @@ def handle_exception(exc_type, exc_value, exc_traceback):
 sys.excepthook = handle_exception
 
 
+# Configure logging
 os.makedirs(os.path.dirname(LOGGING_FILE), exist_ok=True)
 logging.basicConfig(
     format='%(asctime)s [%(levelname)-8s] %(name)-15s - %(message)s',
