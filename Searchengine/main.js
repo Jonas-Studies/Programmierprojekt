@@ -14,10 +14,10 @@ app.use(
     async function (request, response, next) {
         console.info('Recieved request to display the search page')
 
-        if (request.query.keyphrase != undefined) {
+        if (request.query.keyphrase != undefined || request.query.min_molecular_mass != undefined && request.query.max_molecular_maxx != undefined) {
             const substances_model = require('./models/substances')
     
-            const searchCriteria = substances_model.get_searchCriteria(request.query.keyphrase)
+            const searchCriteria = substances_model.get_searchCriteria(request.query.keyphrase, request.query.min_molecular_mass, request.query.max_molecular_maxx)
     
             const substances = await substances_model.get_many_by_searchCriteria(searchCriteria)
     
