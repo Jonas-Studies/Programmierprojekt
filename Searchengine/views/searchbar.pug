@@ -1,6 +1,6 @@
 mixin searchbar (searchCriteria)
     div(class="align-horizontally align-centered")
-        form(id="searchbar" action="/searchresults")
+        form(id="searchbar" action="/search")
             button(id="options-button" type="button")= "Optionen"
             if (searchCriteria != undefined && searchCriteria.keyphrase != undefined)
                 input(type="text" name="keyphrase" value=searchCriteria.keyphrase required="required")

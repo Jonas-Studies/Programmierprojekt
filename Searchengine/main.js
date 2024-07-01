@@ -14,27 +14,23 @@ app.use(
     async function (request, response, next) {
         console.info('Recieved request to display the search page')
 
-        response.status(200).render('search_page')
-    }
-)
-
-app.use(
-    '/searchresults',
-    async function (request, response, next) {
-        console.info('Recieved request to display the search-results page')
-
-        const substances_model = require('./models/substances')
-
-        const searchCriteria = substances_model.get_searchCriteria(request.query.keyphrase)
-
-        const substances = await substances_model.get_many_by_searchCriteria(searchCriteria)
-
-        console.info(substances)
-
-        response.status(200).render(
-            'searchresults_page',
-            { searchCriteria: searchCriteria, substances: substances }
-        )
+        if (request.query.keyphrase != undefined) {
+            const substances_model = require('./models/substances')
+    
+            const searchCriteria = substances_model.get_searchCriteria(request.query.keyphrase)
+    
+            const substances = await substances_model.get_many_by_searchCriteria(searchCriteria)
+    
+            console.info(substances)
+    
+            response.status(200).render(
+                'searchresults_page',
+                { searchCriteria: searchCriteria, substances: substances }
+            )
+        }
+        else {
+            response.status(200).render('search_page')
+        }
     }
 )
 
