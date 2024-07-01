@@ -1,5 +1,7 @@
 @echo off
 
+cd /d %~dp0
+
 if exist venv (
     rmdir /s /q venv
     if %ERRORLEVEL% NEQ 0 goto end
