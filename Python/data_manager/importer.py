@@ -9,7 +9,15 @@ import logging
 import json
 
 
-def _validate_substance(substance, fix_substances):
+def _validate_substance(substance, fix_substances) -> bool:
+    """Sets the 'validated' key of the substance to True if the substance is valid, False otherwise.
+    If fix_substances is True, the substance is fixed if possible.
+    
+    If the substance has an invalid schema, the function returns False.
+
+    Returns:
+        bool: Schema validation success
+    """
     try:
         validator.validate_substance_schema(substance)
     except Exception as e:
@@ -32,7 +40,6 @@ def import_data_from_file(path: str, fix_substances: bool = False):
     with open(path, 'r') as file:
         substances = json.load(file)
     if not isinstance(substances, list):
-        logging.error(f"The file '{path}' does not contain a list of substances.")
         raise ValueError(f"The file '{path}' does not contain a list of substances.")
     
     logging.info(f"Read {len(substances)} substances from '{path}'.")
@@ -48,6 +55,9 @@ def import_data_from_caymanchem(fix_substances: bool = False):
     
     
 def import_data(scraped_substances: list[dict], fix_substances: bool = False):
+    """Imports substances into the database.
+    """
+    
     # Substances with no smiles are ignored because these only contain null values.
     substance_count = len(scraped_substances)
     scraped_substances = [substance for substance in scraped_substances if substance['smiles'] is not None]
@@ -61,7 +71,7 @@ def import_data(scraped_substances: list[dict], fix_substances: bool = False):
     scraped_substances = list(unique_substances.values())
     
 
-    with ProcessPoolExecutor(max_workers=12) as executor:
+    with ProcessPoolExecutor() as executor:
         result = list(executor.map(
             _validate_substance,
             scraped_substances,
