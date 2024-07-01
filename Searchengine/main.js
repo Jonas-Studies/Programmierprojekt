@@ -25,11 +25,13 @@ app.use(
 
         const substances_model = require('./models/substances')
 
-        const keyphrase = request.query.keywords
+        const searchCriteria = {
+            keyphrase: request.query.keyphrase
+        }
 
         const substances = await substances_model.get_many_by_searchCriteria(
                 {
-                    $text: { $search: keyphrase }
+                    $text: { $search: searchCriteria.keyphrase }
                 }
         )
 
@@ -37,7 +39,7 @@ app.use(
 
         response.status(200).render(
             'searchresults_page',
-            { keyphrase: keyphrase, substances: substances }
+            { searchCriteria: searchCriteria, substances: substances }
         )
     }
 )

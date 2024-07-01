@@ -1,6 +1,9 @@
-mixin searchbar
+mixin searchbar (searchCriteria)
     div(class="align-horizontally align-centered")
         form(id="searchbar" action="/searchresults")
             button(id="options-button" type="button")= "Optionen"
-            input(type="text" name="keywords" placeholder="Suchbegriff eingeben" required="required")
+            if (searchCriteria != undefined && searchCriteria.keyphrase != undefined)
+                input(type="text" name="keyphrase" value=searchCriteria.keyphrase required="required")
+            else
+                input(type="text" name="keyphrase" placeholder="Suchbegriff eingeben" required="required")
             button(id="search-button" type="submit")= "Suchen"
