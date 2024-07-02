@@ -7,7 +7,7 @@ DATABASE_NAME = "designerdrugdatabase"
 
 LOGGING_LEVEL = logging.INFO
 
-FIX_SUBSTANCES = True
+FIX_SUBSTANCES = False
 CPU_CORES = 4
 
 FORMAT_EXPORT = True

@@ -2,6 +2,8 @@
 
 cd /d %~dp0
 
+start /b .\Database\run.bat >nul
+
 call venv\Scripts\activate
 if %ERRORLEVEL% NEQ 0 goto end
 echo Activated virtual environment
