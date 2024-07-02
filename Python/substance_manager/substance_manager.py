@@ -47,7 +47,10 @@ def are_substances_equal(substance1, substance2):
         substance1['molecular_mass'] == substance2['molecular_mass'] and
         substance1['cas_num'] == substance2['cas_num'] and
         substance1['categories'] == substance2['categories'] and
+        substance1['source']['name'] == substance2['source']['name'] and
         substance1['source']['url'] == substance2['source']['url'] and
-        substance1['deleted'] == substance2['deleted']
+        substance1['validated'] == substance2['validated'] and
+        substance1['deleted'] == substance2['deleted'] and
+        substance1['details'] == substance2['details']
     )
     
