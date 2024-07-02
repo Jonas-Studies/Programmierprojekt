@@ -15,17 +15,21 @@ install.bat
 
 Diese Befehle downloaden die Anwendung und installieren alle von dieser benötigten Module.
 
+## Ausführung
+
+Das Skript `run.bat` startet die Anwendung.
+
 ## Scrapen und Importieren
+
+Voraussetzung für das Scrapen und Importieren ist, dass `run.bat` bereits läuft.
 
 Alle JSON-Dateien (von anderen Teams), die importiert werden sollen, können im `Imports` Ordner abgelegt werden.
 
 Durch ausführen von `import.bat` werden alle json-Dokumente welche im Ordner `Imports` liegen importiert, und alle Substanzen von Caymanchem gescraped.
 
-## Ausführung
-
-Das Skript `run.bat` startet die Anwendung.
-
 ## Export
+
+Voraussetzung für den Export ist, dass `run.bat` bereits läuft.
 
 Die von Caymanchem importierten Substanzen können durch ausführen von `export.bat` in den Ordner `Exports` gelegt werden.
 
