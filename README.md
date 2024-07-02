@@ -2,31 +2,36 @@
 
 ## Installation
 
-Es müssen Node und Python 3.12.4 installiert sein, damit das Programm problemfrei laufen kann.  
+Zum Verwenden der Anwendung müssen NodeJs und Python 3.12.4 installiert sein.
 
-Wichtig: Python 3.12.4 muss der erste Eintrag in Path sein.  
-Dies kann überprüft werden, indem `python --version` in der Konsole ausgeführt wird.
+Die Anwendung kann mit folgenden Commands installiert werden:
+``` bash
+git clone https://github.com/Jonas-Studies/Programmierprojekt
 
-Danach können alle Abhängigkeiten durch Doppelklick auf `install.bat` installiert werden.
+cd Programmierprojekt
+
+install.bat
+```
+
+Diese Befehle downloaden die Anwendung und installieren alle von dieser benötigten Module.
 
 ## Scrapen und Importieren
 
 Alle JSON-Dateien (von anderen Teams), die importiert werden sollen, können im `Imports` Ordner abgelegt werden.
 
-Durch Doppelklick auf `import.bat` werden alle Daten von `Imports` importiert, und alle Substanzen von Caymanchem gescraped.
+Durch ausführen von `import.bat` werden alle json-Dokumente welche im Ordner `Imports` liegen importiert, und alle Substanzen von Caymanchem gescraped.
 
 ## Ausführung
 
-Durch Doppelklick auf `run.bat` startet die Suchmaschine.  
-Wenn keine Daten angezeigt werden, muss vorher `import.bat` aufgerufen werden!
+Das Skript `run.bat` startet die Anwendung.
 
 ## Export
 
-Die von Caymanchem importierten Substanzen können durch Doppelklick auf `export.bat` in den `Exports` exportiert werden.
+Die von Caymanchem importierten Substanzen können durch ausführen von `export.bat` in den Ordner `Exports` gelegt werden.
 
 ## Einstellungen
 
-In `Python\settings.py` können einige Einstellungen vorgenommen werden:
+In `Python\settings.py` können einige Einstellungen am Webscraper vorgenommen werden:
 - Datenbank-Einstellungen
 - Logging-Level
 - Korrigieren der Substanzeigenschaften
