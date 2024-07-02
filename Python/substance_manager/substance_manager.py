@@ -1,3 +1,6 @@
+"""Helper module to create and compare substances
+"""
+
 from datetime import datetime
 
 def get_new_substance (

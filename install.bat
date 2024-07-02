@@ -30,4 +30,5 @@ if %ERRORLEVEL% NEQ 0 goto end
 echo Installed Node requirements
 
 :end
+pause
 exit /b %ERRORLEVEL%

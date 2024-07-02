@@ -1,3 +1,6 @@
+"""Sets up logging and logs and handles uncaught exceptions.
+"""
+
 import logging
 import sys
 import os

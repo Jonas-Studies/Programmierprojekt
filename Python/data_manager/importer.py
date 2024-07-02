@@ -1,3 +1,6 @@
+"""Imports substances from Caymanchem or JSON files into the database.
+"""
+
 from webscraper.caymanchemAPI import CaymanchemAPI
 from database import database
 from substance_manager import substance_manager

@@ -1,3 +1,6 @@
+"""Exports substances from the database to a JSON file.
+"""
+
 from database import database
 from settings import FORMAT_EXPORT
 from logger import logger
