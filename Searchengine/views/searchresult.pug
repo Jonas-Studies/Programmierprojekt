@@ -6,16 +6,17 @@ mixin searchresult (substance)
             details
                 summary(class="searchresult-header align-vertically")
                     section(class="align-horizontally align-space-between")
-                        section(class="align-horizontally gap-2")
-                            div
-                                span(class="searchresult-key")= "Source: "
-                                span(class="searchresult-value")= substance.source.name
-                            div
-                                span(class="searchresult-key")= "Name: "
-                                span(class="searchresult-value")= substance.names[0]
-                            div
-                                span(class="searchresult-key")= "Formula: "
-                                span(class="searchresult-value")= substance.formula
+                        section(class="align-vertically gap-1")
+                            section(class="align-horizontally gap-2")
+                                div
+                                    span(class="searchresult-key")= "Source: "
+                                    span(class="searchresult-value")= substance.source.name
+                                div
+                                    span(class="searchresult-key")= "Name: "
+                                    span(class="searchresult-value")= substance.names[0]
+                                div
+                                    span(class="searchresult-key")= "Formula: "
+                                    span(class="searchresult-value")= substance.formula
                             div
                                 span(class="searchresult-key")= "SMILES: "
                                 span(class="searchresult-value")= substance.smiles
