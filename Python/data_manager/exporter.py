@@ -7,7 +7,7 @@ import json
 import os
 
 
-def export_data(only_from_caymanchem: bool = False):
+def export_data(path: str, only_from_caymanchem: bool = False):
     """Export substances to a JSON file in the 'Exports' folder.
     """
     if only_from_caymanchem:

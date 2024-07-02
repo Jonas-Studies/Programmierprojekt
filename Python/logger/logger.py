@@ -2,7 +2,7 @@ import logging
 import sys
 import os
 
-from settings import LOGGING_FILE, LOGGING_LEVEL
+from settings import LOGGING_LEVEL
 
 
 # Log uncaught exceptions
@@ -17,10 +17,11 @@ sys.excepthook = handle_exception
 
 
 # Configure logging
-os.makedirs(os.path.dirname(LOGGING_FILE), exist_ok=True)
+path = os.path.join(os.path.dirname(__file__), '../../Logs/log.log')
+os.makedirs(os.path.dirname(path), exist_ok=True)
 logging.basicConfig(
     format='%(asctime)s [%(levelname)-8s] %(name)-15s - %(message)s',
-    filename=LOGGING_FILE,
+    filename=path,
     encoding='utf-8',
     level=LOGGING_LEVEL
 )
