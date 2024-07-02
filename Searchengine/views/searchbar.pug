@@ -31,6 +31,6 @@ mixin searchbar (searchCriteria)
                                         input(type="number" name="min_molecular_mass" placeholder="0.00" step="0.00")
                                     label()= "Max: "
                                     if (searchCriteria != undefined && searchCriteria.molecular_mass.max != undefined)
-                                        input(type="number" name="max_molecular_maxx" placeholder="0.00" step="0.00" value=searchCriteria.molecular_mass.max)
+                                        input(type="number" name="max_molecular_mass" placeholder="0.00" step="0.00" value=searchCriteria.molecular_mass.max)
                                     else
-                                        input(type="number" name="max_molecular_maxx" placeholder="0.00" step="0.00")
+                                        input(type="number" name="max_molecular_mass" placeholder="0.00" step="0.00")
