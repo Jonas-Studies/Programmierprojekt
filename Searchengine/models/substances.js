@@ -51,7 +51,7 @@ exports.get_many_by_searchCriteria = async function (searchCriteria) {
     
     await substances_collection.with_connection(
         async (collection) => {
-            result = await collection.find(query).skip(0).limit(10).toArray()
+            result = await collection.find(query).skip(0).limit(50).toArray()
         }
     )
 
