@@ -1,9 +1,31 @@
 .searchresult {
+    list-style-position: inside;
+    
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.searchresult-url {
+    color: #614bf2;
+}
+
+.searchresult-url:visited, .searchresult-url:active {
+    color: #7F6DF2;
+    text-decoration: none;
+}
+
+.searchresult-header {
+    padding: 5px;
+    border-bottom: 1px solid black;
 }
 
 .searchresult-details {
-    white-space: nowrap;
-    overflow-x: scroll;
+    padding: 5px;
+}
 
-    display: none;
+.searchresult-key {
+}
+
+.searchresult-value {
+    color: gray;
 }

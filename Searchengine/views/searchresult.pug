@@ -1,28 +1,43 @@
 mixin searchresult (substance)
     div(class="searchresult")
-        section(class="align-vertically gap-1")
-            header(class="align-vertically")
-                div(class="align-horizontally")
-                    a(href= substance.source.url)= substance.source.url
-                div(class="align-horizontally")
-                    section(class="align-vertically")
-                        section(class="align-horizontally gap-1")
-                            span= "Source: " + substance.source.name
-                            span= "Name: " + substance.names[0]
-                            span= "Formula: " + substance.formula
-                        span= "SMILES: " + substance.smiles
-            hr
-            section(class="searchresult-details align-vertically")
-                section(class="align-horizontally gap-5")
-                    section(class="align-vertically")
-                        span= "Molecular mass: " + substance.molecular_mass
-                        span= "CAS Number: " + substance.cas_num
-                        span= "Inchi key:" + substance.inchi_key
-                    hr
-                    section(class="align-vertically")
-                        ul= "Names:"
-                            each name in substance.names
-                                li= name
-                            each iupac_name in substance.iupac_names
-                                li= iupac_name
-                span= substance.inchi
+        section(class="align-vertically")
+            section(class="align-horizontally")
+                a(class="searchresult-url" href= substance.source.url)= substance.source.url
+            details
+                summary(class="searchresult-header align-vertically")
+                    section(class="align-horizontally align-space-between")
+                        section(class="align-horizontally gap-2")
+                            div
+                                span(class="searchresult-key")= "Source: "
+                                span(class="searchresult-value")= substance.source.name
+                            div
+                                span(class="searchresult-key")= "Name: "
+                                span(class="searchresult-value")= substance.names[0]
+                            div
+                                span(class="searchresult-key")= "Formula: "
+                                span(class="searchresult-value")= substance.formula
+                            div
+                                span(class="searchresult-key")= "SMILES: "
+                                span(class="searchresult-value")= substance.smiles
+                        section(class="align-vertically")
+                            svg(width="20" height="20" fill="#614BF2")
+                                use(xlink:href="/icons/bootstrap-icons.svg#caret-down")
+                section(class="searchresult-details align-vertically gap-1")
+                    section(class="align-horizontally gap-4")
+                        section(class="align-vertically ")
+                            div
+                                span(class="searchresult-key")= "Molecular mass: "
+                                span(class="searchresult-value")= substance.molecular_mass
+                            div
+                                span(class="searchresult-key")= "CAS Number: "
+                                span(class="searchresult-value")= substance.cas_num
+                            div
+                                span(class="searchresult-key")= "Inchi key: "
+                                span(class="searchresult-value")= substance.inchi_key
+                        section(class="align-vertically")
+                            ul(class="searchresult-key")= "Names:"
+                                each name in substance.names
+                                    li(class="searchresult-value")= name
+                                each iupac_name in substance.iupac_names
+                                    li(class="searchresult-value")= iupac_name
+                    span= substance.inchi

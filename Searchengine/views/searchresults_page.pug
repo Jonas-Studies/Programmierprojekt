@@ -15,8 +15,9 @@ block content
         header
             + navbar()
         section(class="align-horizontally align-centered")
-            section(class="align-vertically gap-1" style="width: 75%")
-                + searchbar()
+            section(class="align-vertically gap-3" style="width: 75%")
+                section(class="align-horizontally align-centered")
+                    + searchbar( searchCriteria )
                 if substances != undefined && substances.length != undefined && substances.length > 0
                     each substance in substances
                         + searchresult( substance )

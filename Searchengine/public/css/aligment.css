@@ -7,7 +7,7 @@
 .align-vertically {
     display: flex;
     flex-direction: column;
-    height: 100%
+    height: 100%;
 }
 
 .align-vertically .align-centered {
@@ -16,6 +16,10 @@
 
 .align-horizontally .align-centered {
     align-items: center;
+}
+
+.align-vertically .align-space-between {
+    justify-content: space-between;
 }
 
 .gap-1 {
