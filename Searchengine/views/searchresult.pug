@@ -41,4 +41,8 @@ mixin searchresult (substance)
                                     li(class="searchresult-value")= name
                                 each iupac_name in substance.iupac_names
                                     li(class="searchresult-value")= iupac_name
+                        section(class="align-vertically")
+                            ul(class="searchresult-key")= "Categories:"
+                                each categorie in substance.categories
+                                    li(class="searchresult-value")= categorie
                     span= substance.inchi
