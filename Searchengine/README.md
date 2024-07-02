@@ -1,3 +1,6 @@
+# Anwendung
+Die Anwendung ist eine nodejs Webanwendung welche unter **Port 3000** gestartet wird.
+Sie ermöglicht dass Suchen nach von den Webscrapern ermittelten Designerdrogen.
 # Dateistruktur
 ```
 Searchengine
