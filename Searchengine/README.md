@@ -1,12 +1,20 @@
 # Dateistruktur
 ```
 Searchengine
-├── public
 ├── main.js
 ├── database.js
 ├── models
-└── views
+├── views
+└── public
 ```
+## main.js
+Die Datei `main.js` ist der Startpunkt des Webservers, diese definiert die vom Server bereitgestellten Routen.
+## database.js
+Die Datei `database.js` exportiert eine Klasse zum verwenden der MongoDB des Projekts.
+## models
+Der Ordner `models` enthält js-module welche zum Bedienen der Datenbank verwendet werden.
+## views
+Der Ordner `views` enthält alle pug-templates und pug-mixins welche für die Anzeigen der Suchmaschine benötigt werden.
 ## public
 Der Ordner `public` enthält alle Dateien welche dem Client zur Verfügung gestellt werden. Dieser unterteilt sich in folgende Unterordner:
 ```
@@ -24,9 +32,3 @@ Der Ordner `js` enthält alle von der Website benötigten js Skripte.
 Der Ordner `icons` enthält eine svg Datei mit allen Bootstrap-Icons.
 ### fonts
 Der Ordner `fonts` enthält alle von der Anwendung verwendeten fonts.
-## main.js
-Die Datei `main.js` ist der Startpunkt des Webservers, diese definiert die vom Server bereitgestellten Routen.
-## models
-Der Ordner `models` enthält js-module welche zum Bedienen der Datenbank verwendet werden.
-## views
-Der Ordner `views` enthält alle pug-templates und pug-mixins welche für die Anzeigen der Suchmaschine benötigt werden.
