@@ -1,3 +1,6 @@
+"""Scrapes substances from Caymanchem.
+"""
+
 from concurrent.futures import ThreadPoolExecutor
 import requests
 import json
@@ -10,13 +13,16 @@ class CaymanchemAPI:
     tags = set()
     
     def _clean_formatted_text(text: str) -> str:
-        # Remove html tags with regex
+        # Remove html tags using regex
         return re.sub(r'<[^>]*>', '', text)
     
     def _clean_url(url: str) -> str:
         return url.replace('\n', '')
     
     def get_caymanchem_substances() -> list[dict]:
+        """Gets substances in the Caymanchem format.
+        """
+        
         # Read url from ./fetch_substances_url.txt
         with open(os.path.join(os.path.dirname(__file__), './fetch_substances_url.txt')) as f:
             url = CaymanchemAPI._clean_url(f.read())
@@ -32,6 +38,9 @@ class CaymanchemAPI:
         return substances
     
     def get_caymanchem_raptas() -> list[dict]:
+        """Gets raptas (categories) in the Caymanchem format.
+        """
+        
         # Read url from ./fetch_raptas_url.txt
         with open(os.path.join(os.path.dirname(__file__), './fetch_raptas_url.txt')) as f:
             url = CaymanchemAPI._clean_url(f.read())
@@ -47,6 +56,9 @@ class CaymanchemAPI:
         return raptas
     
     def get_substances() -> list[dict]:
+        """Gets substances and raptas from Caymanchem and converts them to the format used in the rest of the program.
+        """
+        
         # Get substances and raptas from Caymanchem
         with ThreadPoolExecutor(max_workers=2) as executor:
             substances_future = executor.submit(CaymanchemAPI.get_caymanchem_substances)

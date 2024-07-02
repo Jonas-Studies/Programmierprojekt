@@ -1,11 +1,16 @@
+"""Exports substances from the database to a JSON file.
+"""
+
 from database import database
+from settings import FORMAT_EXPORT
+from logger import logger
 
 import logging
 import json
 import os
 
 
-def export_data(only_from_caymanchem: bool = False):
+def export_data(path: str, only_from_caymanchem: bool = False):
     """Export substances to a JSON file in the 'Exports' folder.
     """
     if only_from_caymanchem:
@@ -26,7 +31,8 @@ def export_data(only_from_caymanchem: bool = False):
     path = f"./Exports/substances.json"
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as file:
-        json.dump(substances, file, indent=4)
+        indent = 4 if FORMAT_EXPORT else None
+        json.dump(substances, file, indent=indent)
         
     logging.info(f"Exported {len(substances)} substances to '{path}'.")
     

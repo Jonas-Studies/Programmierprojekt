@@ -32,11 +32,18 @@ class Substances:
         return None
     
     def update_substances_by_smiles (self, substances: list[dict]) -> None:
-        for substance in substances:
-            smiles = substance.get('smiles', None)
+        # for substance in substances:
+        #     smiles = substance.get('smiles', None)
 
-            if smiles is not None:
-                self.update_substance_by_smiles(substance, smiles)
+        #     if smiles is not None:
+        #         self.update_substance_by_smiles(substance, smiles)
+        
+        for substance in substances:
+            self.collection.delete_one(
+                filter = { "smiles": substance['smiles'] }
+            )
+            
+        self.collection.insert_many(substances)
 
         return None
     

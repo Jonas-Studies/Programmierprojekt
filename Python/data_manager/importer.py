@@ -1,10 +1,15 @@
+"""Imports substances from Caymanchem or JSON files into the database.
+"""
+
 from webscraper.caymanchemAPI import CaymanchemAPI
 from database import database
 from substance_manager import substance_manager
 from validator import validator
 from concurrent.futures import ProcessPoolExecutor
 from logger import logger
+from settings import CPU_CORES
 
+from datetime import datetime
 import logging
 import json
 
@@ -57,6 +62,7 @@ def import_data_from_caymanchem(fix_substances: bool = False):
 def import_data(scraped_substances: list[dict], fix_substances: bool = False):
     """Imports substances into the database.
     """
+    logging.info(f"Importing {len(scraped_substances)} substances.")
     
     # Substances with no smiles are ignored because these only contain null values.
     substance_count = len(scraped_substances)
@@ -64,14 +70,9 @@ def import_data(scraped_substances: list[dict], fix_substances: bool = False):
     if len(scraped_substances) != substance_count:
         logging.warning(f"Discarded {substance_count - len(scraped_substances)} substances without SMILES.")
     
-    # When multiple substances have the same smiles, only the first substance is kept.
-    unique_substances = { substance['smiles']: substance for substance in reversed(scraped_substances) }
-    if len(unique_substances) != len(scraped_substances):
-        logging.warning(f"Discarded {len(scraped_substances) - len(unique_substances)} substances with duplicate SMILES.")
-    scraped_substances = list(unique_substances.values())
-    
 
-    with ProcessPoolExecutor() as executor:
+    # Validate substances
+    with ProcessPoolExecutor(max_workers=CPU_CORES) as executor:
         result = list(executor.map(
             _validate_substance,
             scraped_substances,
@@ -85,15 +86,22 @@ def import_data(scraped_substances: list[dict], fix_substances: bool = False):
             logging.info(f"Validated {len(scraped_substances)} substances.")
         else:
             logging.warning(f"Discarded {len(result) - len(scraped_substances)} substances with invalid format. Remaining: {len(scraped_substances)}.")
+    
+    
+    # When multiple substances have the same smiles, only the first substance is kept.
+    unique_substances = { substance['smiles']: substance for substance in reversed(scraped_substances) }
+    if len(unique_substances) != len(scraped_substances):
+        logging.warning(f"Discarded {len(scraped_substances) - len(unique_substances)} substances with duplicate SMILES.")
+    scraped_substances = list(unique_substances.values())
         
     
     # Create a dictionary of existing substances for easier comparison
-    existing_substances = database.get_substances_by_sourceName("Caymanchem")
-    existing_substances = dict((substance['smiles'], substance) for substance in existing_substances)
+    existing_substances = { substance['smiles']: substance for substance in database.get_substances() }
     logging.info(f"Found {len(existing_substances)} existing substances in the database.")
     
     new_substances = []
     changed_substances = []
+    unchanged_substance_smiles = set()
     
     for substance in scraped_substances:
         # Check if the substance is new
@@ -104,21 +112,36 @@ def import_data(scraped_substances: list[dict], fix_substances: bool = False):
         # Check if the substance has changed
         if not substance_manager.are_substances_equal(substance, existing_substances[substance['smiles']]):
             changed_substances.append(substance)
+            continue
         
-        # Remove the substance from the dictionary
-        existing_substances.pop(substance['smiles'])
+        # Add the substance to the deleted substances if it is from Caymanchem
+        unchanged_substance_smiles.add(substance['smiles'])
     
-    # Gather all remaining substances in the dictionary
-    deleted_substances = list(existing_substances.values())
+    # Gather all substances that have been deleted from Caymanchem
+    deleted_substances = [substance 
+                          for substance in existing_substances.values() 
+                          if substance['source']['name'] == "Caymanchem" and 
+                             substance['smiles'] not in unchanged_substance_smiles]
 
     # Insert, update and delete substances
     if len(new_substances) != 0:
+        start_time = datetime.now()
         database.insert_substances(new_substances)
+        end_time = datetime.now()
+        logging.info(f"Inserted new substances in {end_time - start_time} seconds.")
+
     if len(changed_substances) != 0:
+        start_time = datetime.now()
         database.update_substances(changed_substances)
+        end_time = datetime.now()
+        logging.info(f"Updated changed substances in {end_time - start_time} seconds.")
+
     if len(deleted_substances) != 0:
+        start_time = datetime.now()
         for substance in deleted_substances:
             substance['deleted'] = True
         database.update_substances(deleted_substances)
+        end_time = datetime.now()
+        logging.info(f"Marked substances as deleted and updated in {end_time - start_time} seconds.")
         
     logging.info(f"Inserted {len(new_substances)}, updated {len(changed_substances)} and deleted {len(deleted_substances)} substances.")

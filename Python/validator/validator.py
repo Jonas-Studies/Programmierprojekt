@@ -1,3 +1,6 @@
+"""Validates substance schemas and validates or fixes substance properties.
+"""
+
 from collections import Counter
 import jsonschema
 import json

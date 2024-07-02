@@ -24,5 +24,11 @@ call pip install -r requirements.txt
 if %ERRORLEVEL% NEQ 0 goto end
 echo Installed requirements
 
+cd Searchengine
+call npm install
+if %ERRORLEVEL% NEQ 0 goto end
+echo Installed Node requirements
+
 :end
+pause
 exit /b %ERRORLEVEL%

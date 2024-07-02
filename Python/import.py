@@ -1,18 +1,15 @@
 from data_manager import importer
+from settings import FIX_SUBSTANCES
 
-from datetime import datetime
 import os
 
-
-FIX_SUBSTANCES = True
-
-
 if __name__ == "__main__":
-    if os.path.exists("../Imports"):
-        files = os.listdir("../Imports")
+    path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'Imports')
+    if os.path.exists(path):
+        files = sorted(os.listdir(path))
         for file in files:
             if file.endswith(".json"):
-                importer.import_data_from_file(f"../Imports/{file}", FIX_SUBSTANCES)
+                importer.import_data_from_file(os.path.join(path, file), FIX_SUBSTANCES)
             
     importer.import_data_from_caymanchem(FIX_SUBSTANCES)
     

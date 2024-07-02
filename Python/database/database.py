@@ -51,7 +51,7 @@ def get_activeSubstances() -> list[dict]:
 def get_substances() -> list[dict]:
     substances = MongoDB.Substances()
 
-    result = substances.get_substances()
+    result = substances.get_substances(searchCriteria = {})
 
     return result
 

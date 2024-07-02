@@ -5,5 +5,11 @@ MONGODB_PORT = 27017
 
 DATABASE_NAME = "designerdrugdatabase"
 
-LOGGING_FILE = './Logs/log.log'
-LOGGING_LEVEL = logging.DEBUG
+LOGGING_LEVEL = logging.INFO
+
+FIX_SUBSTANCES = True
+CPU_CORES = 4
+
+FORMAT_EXPORT = True
+EXPORT_ONLY_FROM_CAYMANCHEM = True
+
